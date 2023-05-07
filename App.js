@@ -1,8 +1,10 @@
 import * as SplashScreen from "expo-splash-screen";
 import React, { useCallback, useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
+import * as Font from "expo-font";
+import { Ionicons } from "@expo/vector-icons";
+import { Asset } from "expo-asset";
 
-// Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -10,7 +12,7 @@ export default function App() {
   useEffect(() => {
     async function prepare() {
       try {
-        //await new Promise((resolve) => setTimeout(resolve, 2000));
+        await Font.loadAsync(Ionicons.font);
       } catch (e) {
         console.warn(e);
       } finally {
@@ -23,6 +25,8 @@ export default function App() {
   const onLayoutRootView = useCallback(async () => {
     if (ready) {
       await SplashScreen.hideAsync();
+      //await Asset.loadAsync(require("./asset/Github Contributions Sticker.png"));
+      await Image.prefetch("https://cdn.openai.com/API/images/gradient_card_1.png");
     }
   }, [ready]);
 
