@@ -7,39 +7,53 @@ import { Asset } from "expo-asset";
 
 SplashScreen.preventAutoHideAsync();
 
+const loadFonts = (fonts) => fonts.map((font) => Font.loadAsync(font));
+
+const loadImages = (images) =>
+	images.map((image) => {
+		if (typeof image === "string") {
+			return Image.prefetch(image);
+		} else {
+			return Asset.loadAsync(image);
+		}
+	});
+
 export default function App() {
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await Font.loadAsync(Ionicons.font);
-      } catch (e) {
-        console.warn(e);
-      } finally {
-        setReady(true);
-      }
-    }
-    prepare();
-  }, []);
+	const [ready, setReady] = useState(false);
+	useEffect(() => {
+		async function prepare() {
+			try {
+				const fonts = loadFonts([Ionicons.font]);
+				const images = loadImages([
+					require("./asset/GithubContributionsSticker.png"),
+					"https://cdn.openai.com/API/images/gradient_card_1.png",
+				]);
+				await Promise.all([...fonts, ...images]);
+			} catch (e) {
+				console.warn(e);
+			} finally {
+				setReady(true);
+			}
+		}
+		prepare();
+	}, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (ready) {
-      await SplashScreen.hideAsync();
-      //await Asset.loadAsync(require("./asset/Github Contributions Sticker.png"));
-      await Image.prefetch("https://cdn.openai.com/API/images/gradient_card_1.png");
-    }
-  }, [ready]);
+	const onLayoutRootView = useCallback(async () => {
+		if (ready) {
+			await SplashScreen.hideAsync();
+		}
+	}, [ready]);
 
-  if (!ready) {
-    return null;
-  }
+	if (!ready) {
+		return null;
+	}
 
-  return (
-    <View
-      style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-      onLayout={onLayoutRootView}
-    >
-      <Text>Splash Screen Demo! 👋</Text>
-    </View>
-  );
+	return (
+		<View
+			style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+			onLayout={onLayoutRootView}
+		>
+			<Text>Splash Screen Demo! 👋</Text>
+		</View>
+	);
 }
