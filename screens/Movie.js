@@ -1,21 +1,24 @@
 import React from "react";
 import styled from "styled-components/native";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const Btn = styled.TouchableOpacity`
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+	background-color: ${(props) => props.theme.mainBgColor};
+`;
+
+const Title = styled.Text`
+	color: ${(props) => props.theme.textColor};
+`;
 
 const Movie = ({ navigation: { navigate } }) => (
-	<TouchableOpacity
+	<Btn
 		style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
 		onPress={() => navigate("Stack", { screen: "One" })}
 	>
-		<Text>Movie</Text>
-	</TouchableOpacity>
+		<Title>Movie</Title>
+	</Btn>
 );
-
-const styles = StyleSheet.create({
-	btn: {
-		flex: 1,
-		justifyContent: "center",
-	},
-});
 
 export default Movie;
