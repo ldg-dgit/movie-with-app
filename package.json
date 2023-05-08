@@ -12,7 +12,6 @@
 		"@react-navigation/bottom-tabs": "^6.5.7",
 		"@react-navigation/native": "^6.1.6",
 		"@react-navigation/native-stack": "^6.9.12",
-		"@types/styled-components": "^5.1.26",
 		"expo": "~48.0.10",
 		"expo-asset": "~8.9.1",
 		"expo-font": "~11.1.1",
@@ -25,7 +24,14 @@
 		"styled-components": "^5.3.10"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.20.0"
+		"@babel/core": "^7.20.0",
+		"@tsconfig/react-native": "^3.0.0",
+		"@types/jest": "^29.5.1",
+		"@types/react": "^18.2.6",
+		"@types/react-test-renderer": "^18.0.0",
+		"@types/styled-components": "^5.1.26",
+		"@types/styled-components-react-native": "^5.2.1",
+		"typescript": "^5.0.4"
 	},
 	"private": true
 }
