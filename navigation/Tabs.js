@@ -11,22 +11,42 @@ const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
 	return (
-		<Tab.Navigator initialRouteName="Movie">
+		<Tab.Navigator
+			initialRouteName="Movie"
+			screenOptions={{
+				tabBarLabelStyle: {
+					marginTop: -5,
+					fontWeight: 600,
+				},
+			}}
+		>
 			<Tab.Screen
 				name="Movie"
 				component={Movie}
 				options={{
 					tabBarIcon: ({ focused, color, size }) => {
-						return <Ionicons name="film" color={color} size={size} />;
+						return (
+							<Ionicons
+								name={focused ? "film" : "film-outline"}
+								color={color}
+								size={size}
+							/>
+						);
 					},
 				}}
 			/>
 			<Tab.Screen
-				name="Tv"
+				name="TV"
 				component={Tv}
 				options={{
 					tabBarIcon: ({ focused, color, size }) => {
-						return <Ionicons name="tv" color={color} size={size} />;
+						return (
+							<Ionicons
+								name={focused ? "tv" : "tv-outline"}
+								color={color}
+								size={size}
+							/>
+						);
 					},
 				}}
 			/>
@@ -35,7 +55,13 @@ const Tabs = () => {
 				component={Search}
 				options={{
 					tabBarIcon: ({ focused, color, size }) => {
-						return <Ionicons name="search" color={color} size={size} />;
+						return (
+							<Ionicons
+								name={focused ? "search" : "search-outline"}
+								color={color}
+								size={size}
+							/>
+						);
 					},
 				}}
 			/>
