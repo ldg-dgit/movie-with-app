@@ -12,6 +12,9 @@ import {
 import Root from "./navigation/Root";
 import { darkTheme, lightTheme } from "./Styled";
 import { ThemeProvider } from "styled-components";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,13 +61,15 @@ export default function App() {
 	}
 
 	return (
-		<ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-			<NavigationContainer
-				onReady={onLayoutRootView}
-				theme={isDark ? DarkTheme : DefaultTheme}
-			>
-				<Root />
-			</NavigationContainer>
-		</ThemeProvider>
+		<QueryClientProvider client={queryClient}>
+			<ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+				<NavigationContainer
+					onReady={onLayoutRootView}
+					theme={isDark ? DarkTheme : DefaultTheme}
+				>
+					<Root />
+				</NavigationContainer>
+			</ThemeProvider>
+		</QueryClientProvider>
 	);
 }
