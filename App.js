@@ -1,6 +1,6 @@
 import * as SplashScreen from "expo-splash-screen";
 import React, { useCallback, useEffect, useState } from "react";
-import { Image, Text, View, useColorScheme } from "react-native";
+import { Image, useColorScheme } from "react-native";
 import * as Font from "expo-font";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
@@ -9,8 +9,6 @@ import {
 	DarkTheme,
 	DefaultTheme,
 } from "@react-navigation/native";
-import Tabs from "./navigation/Tabs";
-import Stack from "./navigation/Stack";
 import Root from "./navigation/Root";
 import { darkTheme, lightTheme } from "./Styled";
 import { ThemeProvider } from "styled-components";

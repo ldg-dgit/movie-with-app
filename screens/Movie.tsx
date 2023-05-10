@@ -21,7 +21,7 @@ const Loader = styled.View`
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 const ListTitle = styled.Text`
-	color: white;
+	color: ${(props) => props.theme.textColor};
 	font-size: 18px;
 	font-weight: 600;
 	margin-left: 30px;
@@ -38,13 +38,13 @@ const Movie = styled.View`
 `;
 
 const Title = styled.Text`
-	color: white;
+	color: ${(props) => props.theme.textColor};
 	font-weight: 600;
 	margin-top: 8px;
 	margin-bottom: 5px;
 `;
 const Votes = styled.Text`
-	color: rgba(255, 255, 255, 0.8);
+	color: ${(props) => props.theme.textColorDetail};
 	font-size: 10px;
 `;
 
@@ -64,12 +64,12 @@ const HColumn = styled.View`
 `;
 
 const Overview = styled.Text`
-	color: rgba(255, 255, 255, 0.7);
+	color: ${(props) => props.theme.textColorDetail};
 	width: 83%;
 `;
 
 const Release = styled.Text`
-	color: white;
+	color: ${(props) => props.theme.textColorDetail};
 	font-size: 12px;
 	margin-top: 5px;
 	margin-bottom: 10px;

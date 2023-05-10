@@ -10,7 +10,7 @@ const BgImg = styled.Image``;
 const Title = styled.Text`
 	font-size: 16px;
 	font-weight: 600;
-	color: white;
+	color: ${(props) => props.theme.textColor};
 `;
 
 const Wrapper = styled.View`
@@ -26,7 +26,7 @@ const Column = styled.View`
 `;
 
 const Overview = styled.Text`
-	color: rgba(255, 255, 255, 0.8);
+	color: ${(props) => props.theme.textColorDetail};
 	margin-top: 10px;
 	font-size: 13px;
 `;
@@ -59,7 +59,7 @@ const Slide: React.FC<SlideProps> = ({
 			></BgImg>
 			<BlurView
 				style={StyleSheet.absoluteFill}
-				intensity={50}
+				intensity={100}
 				tint={isDark ? "dark" : "light"}
 			>
 				<Wrapper>
