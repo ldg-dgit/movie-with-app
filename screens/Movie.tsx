@@ -25,6 +25,7 @@ const ListTitle = styled.Text`
 	font-size: 18px;
 	font-weight: 600;
 	margin-left: 30px;
+	margin-bottom: 10px;
 `;
 
 const TrendingScroll = styled.ScrollView`
@@ -70,7 +71,8 @@ const Overview = styled.Text`
 const Release = styled.Text`
 	color: white;
 	font-size: 12px;
-	margin-vertical: 10px;
+	margin-top: 5px;
+	margin-bottom: 10px;
 `;
 
 const ComingSoonTitle = styled(ListTitle)`
@@ -166,12 +168,15 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 					))}
 				</TrendingScroll>
 			</ListContainer>
-			<ListTitle>Coming Soon</ListTitle>
+			<ComingSoonTitle>Coming Soon</ComingSoonTitle>
 			{upcoming.map((movie) => (
 				<HMovie key={movie.id}>
 					<Poster path={movie.poster_path} />
 					<HColumn>
-						<Title>{movie.original_title}</Title>
+						<Title>
+							{movie.original_title.slice(0, 25)}
+							{movie.original_title.length > 25 ? "..." : null}
+						</Title>
 						<Release>
 							{new Date(movie.release_date).toLocaleDateString("ko")}
 						</Release>
