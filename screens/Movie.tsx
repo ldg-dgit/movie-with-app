@@ -52,20 +52,29 @@ const HSeparator = styled.View`
 `;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
-	const [refreshing, setRefreshing] = useState(false);
-	const { isLoading: nowPlayinLoading, data: nowPlayingData } = useQuery(
-		"nowPlaying",
-		moviesApi.nowPlaying
-	);
-	const { isLoading: upcomingLoading, data: upcomingData } = useQuery(
-		"nowPlaying",
-		moviesApi.upcoming
-	);
-	const { isLoading: trendingLoading, data: trendingData } = useQuery(
-		"nowPlaying",
-		moviesApi.trending
-	);
-	const onRefresh = async () => {};
+	const {
+		isLoading: nowPlayinLoading,
+		data: nowPlayingData,
+		refetch: refetchNowPlaying,
+		isRefetching: isRefetchingNowPlaying,
+	} = useQuery("nowPlaying", moviesApi.nowPlaying);
+	const {
+		isLoading: upcomingLoading,
+		data: upcomingData,
+		refetch: refetchUpcoming,
+		isRefetching: isRefetchingUpcoming,
+	} = useQuery("nowPlaying", moviesApi.upcoming);
+	const {
+		isLoading: trendingLoading,
+		data: trendingData,
+		refetch: refetchTrending,
+		isRefetching: isRefetchingTrending,
+	} = useQuery("nowPlaying", moviesApi.trending);
+	const onRefresh = async () => {
+		refetchNowPlaying();
+		refetchUpcoming();
+		refetchTrending();
+	};
 	const renderVMedia = ({ item }) => (
 		<VMedia
 			poster_path={item.poster_path}
@@ -83,6 +92,8 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 	);
 	const movieKeyExtractor = (item) => `${item.id}`;
 	const loading = nowPlayinLoading || upcomingLoading || trendingLoading;
+	const refreshing =
+		isRefetchingNowPlaying || isRefetchingUpcoming || isRefetchingTrending;
 	return loading ? (
 		<Loader>
 			<ActivityIndicator size="small" />
