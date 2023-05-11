@@ -14,12 +14,7 @@ import VMedia from "../components/VertiMedia";
 import HMedia from "../components/HorizMedia";
 import { useQuery, useQueryClient } from "react-query";
 import { Movie, MovieResponse, moviesApi } from "../api";
-
-const Loader = styled.View`
-	flex: 1;
-	justify-content: center;
-	align-items: center;
-`;
+import Loader from "../components/Loader";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -92,9 +87,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 	const refreshing =
 		isRefetchingNowPlaying || isRefetchingUpcoming || isRefetchingTrending;
 	return loading ? (
-		<Loader>
-			<ActivityIndicator size="small" />
-		</Loader>
+		<Loader />
 	) : upcomingData ? (
 		<FlatList
 			onRefresh={onRefresh}
