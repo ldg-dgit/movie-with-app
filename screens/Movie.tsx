@@ -13,7 +13,7 @@ import Slide from "../components/Slide";
 import VMedia from "../components/VertiMedia";
 import HMedia from "../components/HorizMedia";
 import { useQuery, useQueryClient } from "react-query";
-import { moviesApi } from "../api";
+import { Movie, MovieResponse, moviesApi } from "../api";
 
 const Loader = styled.View`
 	flex: 1;
@@ -57,36 +57,37 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 		isLoading: nowPlayinLoading,
 		data: nowPlayingData,
 		isRefetching: isRefetchingNowPlaying,
-	} = useQuery(["movies", "nowPlaying"], moviesApi.nowPlaying);
+	} = useQuery<MovieResponse>(["movies", "nowPlaying"], moviesApi.nowPlaying);
 	const {
 		isLoading: upcomingLoading,
 		data: upcomingData,
 		isRefetching: isRefetchingUpcoming,
-	} = useQuery(["movies", "upcoming"], moviesApi.upcoming);
+	} = useQuery<MovieResponse>(["movies", "upcoming"], moviesApi.upcoming);
 	const {
 		isLoading: trendingLoading,
 		data: trendingData,
 		isRefetching: isRefetchingTrending,
-	} = useQuery(["movies", "trending"], moviesApi.trending);
+	} = useQuery<MovieResponse>(["movies", "trending"], moviesApi.trending);
 	const onRefresh = async () => {
 		queryClient.refetchQueries(["movies"]);
+		console.log(refreshing);
 	};
-	const renderVMedia = ({ item }) => (
+	const renderVMedia = ({ item }: { item: Movie }) => (
 		<VMedia
-			poster_path={item.poster_path}
+			poster_path={item.poster_path || ""}
 			original_title={item.original_title}
 			vote_average={item.vote_average}
 		/>
 	);
-	const renderHMedia = ({ item }) => (
+	const renderHMedia = ({ item }: { item: Movie }) => (
 		<HMedia
-			poster_path={item.poster_path}
+			poster_path={item.poster_path || ""}
 			original_title={item.original_title}
 			overview={item.overview}
 			release_date={item.release_date}
 		/>
 	);
-	const movieKeyExtractor = (item) => `${item.id}`;
+	const movieKeyExtractor = (item: Movie) => `${item.id}`;
 	const loading = nowPlayinLoading || upcomingLoading || trendingLoading;
 	const refreshing =
 		isRefetchingNowPlaying || isRefetchingUpcoming || isRefetchingTrending;
@@ -94,7 +95,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 		<Loader>
 			<ActivityIndicator size="small" />
 		</Loader>
-	) : (
+	) : upcomingData ? (
 		<FlatList
 			onRefresh={onRefresh}
 			refreshing={refreshing}
@@ -113,11 +114,11 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 							marginBottom: 30,
 						}}
 					>
-						{nowPlayingData.results.map((movie) => (
+						{nowPlayingData?.results.map((movie) => (
 							<Slide
 								key={movie.id}
-								backdrop_path={movie.backdrop_path}
-								poster_path={movie.poster_path}
+								backdrop_path={movie.backdrop_path || ""}
+								poster_path={movie.poster_path || ""}
 								original_title={movie.original_title}
 								vote_average={movie.vote_average}
 								overview={movie.overview}
@@ -125,15 +126,17 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 						))}
 					</Swiper>
 					<ListTitle>Trending Movies</ListTitle>
-					<TrendingScroll
-						data={trendingData.results}
-						horizontal
-						showsHorizontalScrollIndicator={false}
-						contentContainerStyle={{ paddingHorizontal: 30 }}
-						ItemSeparatorComponent={VSeparator}
-						keyExtractor={movieKeyExtractor}
-						renderItem={renderVMedia}
-					/>
+					{trendingData ? (
+						<TrendingScroll
+							data={trendingData.results}
+							horizontal
+							showsHorizontalScrollIndicator={false}
+							contentContainerStyle={{ paddingHorizontal: 30 }}
+							ItemSeparatorComponent={VSeparator}
+							keyExtractor={movieKeyExtractor}
+							renderItem={renderVMedia}
+						/>
+					) : null}
 					<ListContainer></ListContainer>
 					<ComingSoonTitle>Coming Soon</ComingSoonTitle>
 				</>
@@ -143,7 +146,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 			ItemSeparatorComponent={HSeparator}
 			renderItem={renderHMedia}
 		/>
-	);
+	) : null;
 };
 
 export default Movies;
