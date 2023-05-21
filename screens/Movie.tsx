@@ -15,6 +15,7 @@ import HMedia from "../components/HorizMedia";
 import { useQuery, useQueryClient } from "react-query";
 import { Movie, MovieResponse, moviesApi } from "../api";
 import Loader from "../components/Loader";
+import HList from "../components/HorizList";
 
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -118,19 +119,9 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 							/>
 						))}
 					</Swiper>
-					<ListTitle>Trending Movies</ListTitle>
 					{trendingData ? (
-						<TrendingScroll
-							data={trendingData.results}
-							horizontal
-							showsHorizontalScrollIndicator={false}
-							contentContainerStyle={{ paddingHorizontal: 25 }}
-							ItemSeparatorComponent={VSeparator}
-							keyExtractor={movieKeyExtractor}
-							renderItem={renderVMedia}
-						/>
+						<HList title="Trending Movies" data={trendingData?.results} />
 					) : null}
-					<ListContainer></ListContainer>
 					<ComingSoonTitle>Coming Soon</ComingSoonTitle>
 				</>
 			}
