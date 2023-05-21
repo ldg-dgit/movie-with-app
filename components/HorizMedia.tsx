@@ -4,7 +4,7 @@ import Poster from "./Poster";
 import Votes from "./Votes";
 
 const HMovie = styled.View`
-	padding: 0px 30px;
+	padding: 0px 25px;
 	flex-direction: row;
 `;
 

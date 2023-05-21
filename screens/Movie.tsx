@@ -22,7 +22,7 @@ const ListTitle = styled.Text`
 	color: ${(props) => props.theme.textColor};
 	font-size: 18px;
 	font-weight: 600;
-	margin-left: 30px;
+	margin-left: 25px;
 	margin-bottom: 10px;
 `;
 
@@ -39,11 +39,11 @@ const ComingSoonTitle = styled(ListTitle)`
 `;
 
 const VSeparator = styled.View`
-	width: 30px;
+	width: 25px;
 `;
 
 const HSeparator = styled.View`
-	height: 30px;
+	height: 25px;
 `;
 
 const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
@@ -104,7 +104,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 						containerStyle={{
 							width: "100%",
 							height: SCREEN_HEIGHT / 4,
-							marginBottom: 30,
+							marginBottom: 25,
 						}}
 					>
 						{nowPlayingData?.results.map((movie) => (
@@ -124,7 +124,7 @@ const Movies: React.FC<NativeStackScreenProps<any, "Movie">> = ({}) => {
 							data={trendingData.results}
 							horizontal
 							showsHorizontalScrollIndicator={false}
-							contentContainerStyle={{ paddingHorizontal: 30 }}
+							contentContainerStyle={{ paddingHorizontal: 25 }}
 							ItemSeparatorComponent={VSeparator}
 							keyExtractor={movieKeyExtractor}
 							renderItem={renderVMedia}

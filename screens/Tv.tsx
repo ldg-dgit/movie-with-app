@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import { tvApi } from "../api";
 import Loader from "../components/Loader";
 import VMedia from "../components/VertiMedia";
+import HList from "../components/HorizList";
 
 const Tv = () => {
 	const { isLoading: todayLoading, data: todayData } = useQuery(
@@ -24,18 +25,20 @@ const Tv = () => {
 	}
 	return (
 		<ScrollView>
-			<FlatList
-				data={trendingData.results}
-				horizontal
-				showsHorizontalScrollIndicator={false}
-				renderItem={({ item }) => (
-					<VMedia
-						poster_path={item.poster_path}
-						original_title={item.original_name}
-						vote_average={item.vote_average}
-					/>
-				)}
-			/>
+			<HList title="Trending TV">
+				<FlatList
+					data={trendingData.results}
+					horizontal
+					showsHorizontalScrollIndicator={false}
+					renderItem={({ item }) => (
+						<VMedia
+							poster_path={item.poster_path}
+							original_title={item.original_name}
+							vote_average={item.vote_average}
+						/>
+					)}
+				/>
+			</HList>
 			<FlatList
 				data={todayData.results}
 				horizontal
